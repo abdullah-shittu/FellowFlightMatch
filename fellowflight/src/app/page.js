@@ -35,7 +35,7 @@ const CssIcon = ({ type, className = '' }) => {
 // Main About Page Component
 export default function AboutPage () {
   const router = useRouter()
-
+  const redirect_link = 'https://localhost:3000/api/v1/auth/slack'
   // useEffect(() => {
   //   const isAuthenticated = localStorage.getItem('jwt')
   //   if (isAuthenticated) {
@@ -70,10 +70,10 @@ export default function AboutPage () {
         </p>
         <div className='mt-8 flex justify-center gap-4'>
           <a
-            href='#'
+            href={redirect_link}
             className='inline-block rounded-lg bg-blue-600 px-5 py-3 text-base font-medium text-white shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-50'
           >
-            Find Your Flight Crew
+            Find Your Crew Now
           </a>
         </div>
       </main>
@@ -96,12 +96,8 @@ export default function AboutPage () {
                 <span className='text-2xl font-bold'>1</span>
               </div>
               <h3 className='mt-6 text-xl font-semibold text-gray-900'>
-                Log In with Slack
+                Log In with MLT Slack
               </h3>
-              <p className='mt-2 text-base text-gray-600'>
-                Securely sign in with your MLT Slack account. No new passwords
-                to remember.
-              </p>
             </div>
             {/* Step 2 */}
             <div className='text-center'>
@@ -111,10 +107,6 @@ export default function AboutPage () {
               <h3 className='mt-6 text-xl font-semibold text-gray-900'>
                 Share Your Flight
               </h3>
-              <p className='mt-2 text-base text-gray-600'>
-                Quickly add your flight number and arrival time using our smart,
-                ergonomic form.
-              </p>
             </div>
             {/* Step 3 */}
             <div className='text-center'>
@@ -124,10 +116,6 @@ export default function AboutPage () {
               <h3 className='mt-6 text-xl font-semibold text-gray-900'>
                 Discover Matches
               </h3>
-              <p className='mt-2 text-base text-gray-600'>
-                See who's on your flight or arriving nearby, and get instant
-                Slack notifications for new matches.
-              </p>
             </div>
           </div>
         </div>
@@ -136,67 +124,54 @@ export default function AboutPage () {
       {/* Features Section */}
       <section className='py-20 bg-gray-50'>
         <div className='container mx-auto px-6'>
-          <div className='grid md:grid-cols-2 gap-16 items-center'>
-            <div className='space-y-10'>
-              <div>
-                <div className='flex items-center gap-4'>
-                  <div className='flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-md'>
-                    <CssIcon type='plane' className='text-blue-600' />
-                  </div>
-                  <div>
-                    <h3 className='text-xl font-semibold text-gray-900'>
-                      Same-Flight Coordination
-                    </h3>
-                    <p className='mt-1 text-gray-600'>
-                      Find fellows on your exact flight. Plan to meet at the
-                      gate or even sit together.
-                    </p>
-                  </div>
+          <div className='flex flex-col md:flex-row gap-y-8 md:gap-x-8'>
+            <div className='flex-1'>
+              <div className='flex items-start gap-4'>
+                <div className='flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-md'>
+                  <CssIcon type='plane' className='text-blue-600' />
                 </div>
-              </div>
-              <div>
-                <div className='flex items-center gap-4'>
-                  <div className='flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-md'>
-                    <CssIcon type='users' className='text-blue-600' />
-                  </div>
-                  <div>
-                    <h3 className='text-xl font-semibold text-gray-900'>
-                      Airport Overlap Matching
-                    </h3>
-                    <p className='mt-1 text-gray-600'>
-                      Arriving around the same time? Coordinate a rideshare,
-                      grab coffee, or just say hello.
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div className='flex items-center gap-4'>
-                  <div className='flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-md'>
-                    <CssIcon type='notification' className='text-blue-600' />
-                  </div>
-                  <div>
-                    <h3 className='text-xl font-semibold text-gray-900'>
-                      Instant Slack Alerts
-                    </h3>
-                    <p className='mt-1 text-gray-600'>
-                      Get a DM the moment a new match is found. No need to
-                      constantly check the app.
-                    </p>
-                  </div>
+                <div>
+                  <h3 className='text-xl font-semibold text-gray-900'>
+                    Same-Flight Coordination
+                  </h3>
+                  <p className='mt-1 text-gray-600'>
+                    Find fellows on your exact flight. Plan to meet at the gate
+                    or even sit together.
+                  </p>
                 </div>
               </div>
             </div>
-            <div className='bg-white p-8 rounded-2xl shadow-lg'>
-              <h3 className='text-2xl font-bold text-gray-900'>Our Mission</h3>
-              <p className='mt-4 text-gray-600 leading-relaxed'>
-                Built for the MLT community, by the MLT community. We believe
-                the journey is as important as the destination. FlightMate was
-                created to turn those lonely hours at the airport into powerful
-                opportunities for connection, collaboration, and
-                community-building before the seminar even begins. It’s more
-                than an app—it’s a bridge between fellows.
-              </p>
+            <div className='flex-1'>
+              <div className='flex items-start gap-4'>
+                <div className='flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-md'>
+                  <CssIcon type='users' className='text-blue-600' />
+                </div>
+                <div>
+                  <h3 className='text-xl font-semibold text-gray-900'>
+                    Airport Overlap Matching
+                  </h3>
+                  <p className='mt-1 text-gray-600'>
+                    Arriving around the same time? Coordinate a rideshare, grab
+                    coffee, or just say hello.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className='flex-1'>
+              <div className='flex items-start gap-4'>
+                <div className='flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-md'>
+                  <CssIcon type='notification' className='text-blue-600' />
+                </div>
+                <div>
+                  <h3 className='text-xl font-semibold text-gray-900'>
+                    Instant Slack Alerts
+                  </h3>
+                  <p className='mt-1 text-gray-600'>
+                    Get a DM the moment a new match is found. No need to
+                    constantly check the app.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -206,17 +181,17 @@ export default function AboutPage () {
       <section className='bg-white'>
         <div className='container mx-auto px-6 py-20 text-center'>
           <h2 className='text-3xl font-bold tracking-tight text-gray-900'>
-            Ready to Join Your Travel Community?
+            Ready to find Fellows?
           </h2>
           <p className='mt-3 max-w-xl mx-auto text-lg text-gray-600'>
             Your next connection is just a flight away.
           </p>
           <div className='mt-8'>
             <a
-              href='#'
+              href={redirect_link}
               className='inline-block rounded-lg bg-blue-600 px-6 py-3 text-lg font-medium text-white shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-white'
             >
-              Get Started for Free
+              Get Started
             </a>
           </div>
         </div>
