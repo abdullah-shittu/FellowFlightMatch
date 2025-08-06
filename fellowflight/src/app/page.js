@@ -2,7 +2,7 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-
+import useAuthGuard from '@/components/TokGuard'
 // Helper component for creating icons with only divs and Tailwind CSS
 const CssIcon = ({ type, className = '' }) => {
   if (type === 'plane') {
@@ -34,6 +34,7 @@ const CssIcon = ({ type, className = '' }) => {
 
 // Main About Page Component
 export default function AboutPage () {
+  useAuthGuard();
   const router = useRouter()
   const redirect_link = 'https://localhost:3000/api/v1/auth/slack'
   // useEffect(() => {
