@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import React, { use } from 'react'
 import MailingListForm from '@/components/Forms'
 import { useEffect } from 'react'

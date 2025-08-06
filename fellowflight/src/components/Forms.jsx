@@ -1,7 +1,7 @@
 'use client'
 
 import 'formsmd/dist/css/formsmd.min.css'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Composer, Formsmd } from 'formsmd'
 
 const composer = new Composer({
@@ -63,8 +63,17 @@ composer.p(
 )
 export default function MailingListForm () {
   const containerRef = useRef(null)
+  const [style, setStyle] = useState({})
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 600
+    setStyle({
+      width: isMobile ? '90vw' : '100%',
+      maxWidth: '1000px',
+      height: isMobile ? '80vh' : '70vh',
+      margin: '0 auto'
+    })
+
     if (containerRef.current) {
       const formsmd = new Formsmd(composer.template, containerRef.current, {
         postHeaders: {
@@ -78,12 +87,7 @@ export default function MailingListForm () {
   return (
     <div
       ref={containerRef}
-      style={{
-        width: window.innerWidth < '600px' ? '90vw' : '100%',
-        maxWidth: '1000px',
-        height: window.innerWidth < '600px' ? '80vh' : '70vh',
-        margin: '0 auto'
-      }}
+      style={style}
     ></div>
   )
 }
