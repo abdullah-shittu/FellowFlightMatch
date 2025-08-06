@@ -12,12 +12,14 @@ const composer = new Composer({
 // Slide 1: Core Flight Information (Page Progress: 0%)
 composer.textInput('airport', {
   question: 'Where are you flying from?',
+  required: true,
   description:
     'Start typing your airport name or code (e.g., San Francisco, SFO).'
 })
 
 composer.textInput('flightNumber', {
   question: "What's your flight number?",
+  required: true,
   description: 'You can find this on your confirmation email. (e.g., UA1234)'
 })
 
@@ -28,12 +30,14 @@ composer.slide({
 
 composer.datetimeInput('dateTimeFlight', {
   question: 'When does your flight take off?',
+  required: true,
   description:
     'The MLT seminar date is pre-filled. Click to select a different day.'
 })
 
 composer.numberInput('hoursEarly', {
   question: 'How early do you like to get to the airport?',
+  required: true,
   description:
     'Let us know your check-in buffer! This helps us find you a match at the right time. (e.g., 2.5 hours)'
 })
@@ -45,6 +49,7 @@ composer.slide({
 
 composer.textInput('linkedInTag', {
   question: "Lastly, what's your LinkedIn profile ID?",
+  required: true,
   description:
     'We only need the part after linkedin.com/in/. (e.g., abdullah-shittu)'
 })
@@ -84,10 +89,5 @@ export default function MailingListForm () {
     }
   }, [])
 
-  return (
-    <div
-      ref={containerRef}
-      style={style}
-    ></div>
-  )
+  return <div ref={containerRef} style={style}></div>
 }
