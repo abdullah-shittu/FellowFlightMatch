@@ -2,10 +2,12 @@
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { ProfileCard } from '@/components/ProfileCard'
+import useAuthGuard from '@/components/TokGuard'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 export default function Home () {
+  useAuthGuard();
   // A single object representing a user's profile
   const router = useRouter()
 

@@ -3,11 +3,12 @@ import React, { use } from 'react'
 import MailingListForm from '@/components/Forms'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-
+import useAuthGuard from '@/components/TokGuard'
 // Helper component for creating icons with only divs and Tailwind CSS
 
 // Main About Page Component
 export default function FormPage () {
+    useAuthGuard();
     const router = useRouter()
   
     // useEffect(() => {
