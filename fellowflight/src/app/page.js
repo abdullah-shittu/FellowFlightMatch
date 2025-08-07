@@ -37,7 +37,7 @@ const CssIcon = ({ type, className = '' }) => {
 export default function AboutPage () {
   useAuthGuard();
   const router = useRouter()
-  const redirect_link = 'https://localhost:3000/api/v1/auth/slack'
+  const redirect_link = 'https://api.fellowflightmatch.abdullah.buzz/api/v1/auth/slack'
   // useEffect(() => {
   //   const isAuthenticated = localStorage.getItem('jwt')
   //   if (isAuthenticated) {

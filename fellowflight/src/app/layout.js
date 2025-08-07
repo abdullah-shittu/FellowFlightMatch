@@ -45,17 +45,17 @@ export const metadata = {
 
   // Open Graph Metadata for Social Sharing (Facebook, LinkedIn, Slack, etc.)
   openGraph: {
-    title: "FlightMate: Who's On Your Flight?",
+    title: "FellowFlightMate: Who's at my Airport?",
     description:
-      'Coordinate travel, share rides, and meet other MLT Fellows at the airport. Enter your flight to find your peers.',
+      'Coordinate travel, share rides, and meet other MLT Fellows at the airport. Enter your airport to find your peers.',
     url: applicationUrl,
-    siteName: 'FlightMate',
+    siteName: 'FellowFlightMate',
     images: [
       {
         url: iconUrl,
         width: 800,
         height: 800,
-        alt: 'FlightMate Arrival Pin Logo'
+        alt: 'FellowFlightMate Arrival Pin Logo'
       }
     ],
     locale: 'en_US',
