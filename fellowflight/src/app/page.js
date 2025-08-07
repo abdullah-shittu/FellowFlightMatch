@@ -66,7 +66,7 @@ export default function AboutPage () {
           Arrive Together
         </h1>
         <p className='mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-600'>
-          Turn airport wait times into networking opportunities. Find Summer Seminar fellows flying from the same airport.
+          Discover other Summer Seminar fellows flying from the same airport and connect before takeoff.
         </p>
         <div className='mt-8 flex justify-center gap-4'>
           <a
@@ -86,7 +86,7 @@ export default function AboutPage () {
               Connect in 3 Easy Steps
             </h2>
             <p className='mt-3 max-w-xl mx-auto text-lg text-gray-600'>
-              We do the rest.
+              We'll do the rest.
             </p>
           </div>
           <div className='mt-16 grid gap-12 md:grid-cols-3'>
