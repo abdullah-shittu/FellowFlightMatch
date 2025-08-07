@@ -3,6 +3,7 @@ import React from 'react'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import useAuthGuard from '@/components/TokGuard'
+import FuzzySearch from '@/components/Searcher'
 // Helper component for creating icons with only divs and Tailwind CSS
 const CssIcon = ({ type, className = '' }) => {
   if (type === 'plane') {
@@ -65,9 +66,7 @@ export default function AboutPage () {
           Arrive Together
         </h1>
         <p className='mt-4 max-w-2xl mx-auto text-lg md:text-xl text-gray-600'>
-          Turn airport wait times into networking opportunities. FlightMate
-          helps MLT Fellows find peers on the same flight to coordinate,
-          connect, and build community before you even land.
+          Turn airport wait times into networking opportunities. Find Summer Seminar fellows flying from the same airport.
         </p>
         <div className='mt-8 flex justify-center gap-4'>
           <a
@@ -87,7 +86,7 @@ export default function AboutPage () {
               Connect in 3 Easy Steps
             </h2>
             <p className='mt-3 max-w-xl mx-auto text-lg text-gray-600'>
-              From login to lobby in under a minute.
+              We do the rest.
             </p>
           </div>
           <div className='mt-16 grid gap-12 md:grid-cols-3'>
@@ -106,7 +105,7 @@ export default function AboutPage () {
                 <span className='text-2xl font-bold'>2</span>
               </div>
               <h3 className='mt-6 text-xl font-semibold text-gray-900'>
-                Share Your Flight
+                Share Your Airport 
               </h3>
             </div>
             {/* Step 3 */}
@@ -126,7 +125,7 @@ export default function AboutPage () {
       <section className='py-20 bg-gray-50'>
         <div className='container mx-auto px-6'>
           <div className='flex flex-col md:flex-row gap-y-8 md:gap-x-8'>
-            <div className='flex-1'>
+            {/* <div className='flex-1'>
               <div className='flex items-start gap-4'>
                 <div className='flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-md'>
                   <CssIcon type='plane' className='text-blue-600' />
@@ -141,7 +140,7 @@ export default function AboutPage () {
                   </p>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className='flex-1'>
               <div className='flex items-start gap-4'>
                 <div className='flex-shrink-0 w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-md'>

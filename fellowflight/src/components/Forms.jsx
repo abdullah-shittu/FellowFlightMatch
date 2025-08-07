@@ -3,7 +3,53 @@
 import 'formsmd/dist/css/formsmd.min.css'
 import { useEffect, useRef, useState } from 'react'
 import { Composer, Formsmd } from 'formsmd'
+import Papa from 'papaparse'
+import Fuse from 'fuse.js'
+let fuse
 
+fetch('/airports.csv')
+  .then(res => res.text())
+  .then(text => {
+    Papa.parse(text, {
+      header: true,
+      dynamicTyping: true,
+      complete: parsed => {
+        fuse = new Fuse(parsed.data, {
+          keys: ['city', 'iata', 'region'],
+          includeScore: true,
+          threshold: 0.4
+        })
+      }
+    })
+  })
+
+function showAirportSuggestions (inputEl, results) {
+  // Remove old dropdown
+  document.querySelectorAll('.airport-suggestions').forEach(el => el.remove())
+
+  const container = document.createElement('div')
+  container.className = 'airport-suggestions'
+  container.style.position = 'absolute'
+  container.style.background = 'white'
+  container.style.border = '1px solid #ccc'
+  container.style.zIndex = '1000'
+
+  results.forEach(airport => {
+    const option = document.createElement('div')
+    option.textContent = `${airport.name} (${airport.iata}) - ${airport.city}, ${airport.country}`
+    option.style.padding = '8px'
+    option.style.cursor = 'pointer'
+
+    option.addEventListener('click', () => {
+      inputEl.value = `${airport.name} (${airport.iata})`
+      container.remove()
+    })
+
+    container.appendChild(option)
+  })
+
+  inputEl.parentNode.appendChild(container)
+}
 const composer = new Composer({
   id: 'mailing-list-form',
   postUrl: 'https://localhost:3000/api/v1/formHandler'
@@ -14,14 +60,16 @@ composer.textInput('airport', {
   question: 'Where are you flying from?',
   required: true,
   description:
-    'Start typing your airport name or code (e.g., San Francisco, SFO).'
+    'Start typing your airport name, city or code (e.g., San Francisco, SFO).'
 })
-
-composer.textInput('flightNumber', {
-  question: "What's your flight number?",
-  required: true,
-  description: 'You can find this on your confirmation email. (e.g., UA1234)'
-})
+// composer.hiddenInput('airportId', {
+//   value: '' // Will be filled in later by JS
+// })
+// composer.textInput('flightNumber', {
+//   question: "What's your flight number?",
+//   required: true,
+//   description: 'You can find this on your confirmation email. (e.g., UA1234)'
+// })
 
 // Slide 2: Departure & Personal Preferences (Page Progress: 50%)
 composer.slide({
@@ -86,6 +134,20 @@ export default function MailingListForm () {
         }
       })
       formsmd.init()
+      document.addEventListener('input', e => {
+        if (e.target.name === 'airport' && fuse) {
+          const query = e.target.value
+          if (query.length > 1) {
+            const results = fuse
+              .search(query)
+              .slice(0, 5)
+              .map(r => r.item)
+
+            // Display a custom dropdown
+            showAirportSuggestions(e.target, results)
+          }
+        }
+      })
     }
   }, [])
 
