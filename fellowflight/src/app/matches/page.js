@@ -69,8 +69,9 @@ export default function Home () {
           mockMatches.push({
             user: {
               name: profile.name,
-              subtitle: 'MLT Class of 2025', // Placeholder subtitle
-              profileImage: 'https://randomuser.me/api/profile',
+              subtitle: 'MLT CP Fellow 27', // Placeholder subtitle
+              profileImage:
+                `https://api.dicebear.com/9.x/pixel-art/svg?seed=${Math.floor(Math.random()*1000)}}`,
               linkedinUrl: profile.linkedin_url || '#'
             },
             matchType: 'Airport Overlap',
