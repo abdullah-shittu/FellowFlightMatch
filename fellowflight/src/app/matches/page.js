@@ -70,8 +70,9 @@ export default function Home () {
             user: {
               name: profile.name,
               subtitle: 'MLT CP Fellow 27', // Placeholder subtitle
-              profileImage:
-                `https://api.dicebear.com/9.x/pixel-art/svg?seed=${Math.floor(Math.random()*1000)}}`,
+              profileImage: `https://api.dicebear.com/9.x/pixel-art/svg?seed=${Math.floor(
+                Math.random() * 1000
+              )}}`,
               linkedinUrl: profile.linkedin_url || '#'
             },
             matchType: 'Airport Overlap',
@@ -138,17 +139,26 @@ export default function Home () {
     <div className='container mx-auto p-8'>
       <h1 className='text-3xl font-bold mb-8'>Your Flight Matches</h1>
 
-      <div className='flex flex-wrap gap-6 justify-start'>
-        {matches.map((match, index) => (
-          <ProfileCard
-            key={index}
-            user={match.user}
-            matchType={match.matchType}
-            matchDetails={match.matchDetails}
-            isSameFlight={match.isSameFlight}
-          />
-        ))}
-      </div>
+      {matches.length === 0 ? (
+        <div className='text-center'>
+          <p className='text-lg text-gray-600 mb-4'>
+            No matches found yet. Please check back later or we'll notify you on
+            slack!
+          </p>
+        </div>
+      ) : (
+        <div className='flex flex-wrap gap-6 justify-start'>
+          {matches.map((match, index) => (
+            <ProfileCard
+              key={index}
+              user={match.user}
+              matchType={match.matchType}
+              matchDetails={match.matchDetails}
+              isSameFlight={match.isSameFlight}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
