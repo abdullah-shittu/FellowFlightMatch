@@ -8,7 +8,8 @@ import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 
 export default function Home () {
-  useAuthGuard()[(matches, setMatches)] = useState([])
+  useAuthGuard()
+  const [matches, setMatches] = useState([])
   const router = useRouter()
   const token = document.cookie
     .split('; ')
