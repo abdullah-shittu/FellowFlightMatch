@@ -21,13 +21,16 @@ export default function Home () {
     height: isMobile ? '80vh' : '70vh',
     margin: '0 auto'
   })
+  const flight_id = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('fellowflight_id='))
+    ?.split('=')[1]
 
-  const flightid = 0
   //Create function that fetches fligth matches
   const fetchFlightMatches = async () => {
     try {
       const response = await fetch(
-        `https://api.fellowflightmatch.abdullah.buzz/api/v1/matches?flight_id=${flightid}`,
+        `https://api.fellowflightmatch.abdullah.buzz/api/v1/matches?flight_id=${Number(flight_id)}`,
         {
           method: 'GET',
           headers: {
