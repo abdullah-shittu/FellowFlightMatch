@@ -239,7 +239,7 @@ export default function MailingListForm () {
           secure: true,
           sameSite: 'None'
         })
-        Cookies.set('fellowflight_id', json.fellowflightmatch.id, {
+        Cookies.set('fellowflight_id', json.flight_id, {
           expires: 365,
           domain: 'fellowflightmatch.abdullah.buzz',
           secure: true,
