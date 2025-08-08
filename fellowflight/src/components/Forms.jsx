@@ -203,10 +203,11 @@ export default function MailingListForm () {
     if (containerRef.current) {
       const formsmd = new Formsmd(composer.template, containerRef.current, {
         postHeaders: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+          'credential': 'include'
         },
         errorFieldKey: 'attr',
-        errorMessageKey: 'detail'
+        errorMessageKey: 'detail',
       })
       // formsmd.onCompletion = handleFormSubmit
       formsmd.getSubmissionErrors = function (json) {
@@ -230,7 +231,7 @@ export default function MailingListForm () {
         return messages
       }
       formsmd.onCompletion = () => {
-        
+
         // router.push('/matches')
       }
       formsmd.init()
