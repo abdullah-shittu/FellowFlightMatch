@@ -10,17 +10,11 @@ import { useState } from 'react'
 export default function Home () {
   useAuthGuard()
   const [matches, setMatches] = useState([])
-  const router = useRouter()
+  // const router = useRouter()
   const token = document.cookie
     .split('; ')
     .find(row => row.startsWith('fellowflight_access_token='))
     ?.split('=')[1]
-  setStyle({
-    width: isMobile ? '90vw' : '100%',
-    maxWidth: '1000px',
-    height: isMobile ? '80vh' : '70vh',
-    margin: '0 auto'
-  })
   const flight_id = document.cookie
     .split('; ')
     .find(row => row.startsWith('fellowflight_id='))
@@ -30,7 +24,9 @@ export default function Home () {
   const fetchFlightMatches = async () => {
     try {
       const response = await fetch(
-        `https://api.fellowflightmatch.abdullah.buzz/api/v1/matches?flight_id=${Number(flight_id)}`,
+        `https://api.fellowflightmatch.abdullah.buzz/api/v1/matches?flight_id=${Number(
+          flight_id
+        )}`,
         {
           method: 'GET',
           headers: {
