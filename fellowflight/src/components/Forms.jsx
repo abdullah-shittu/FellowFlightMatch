@@ -7,7 +7,6 @@ import Papa from 'papaparse'
 import Fuse from 'fuse.js'
 import { useRouter } from 'next/navigation'
 import Cookies from 'js-cookie'
-import { Cookie } from 'next/font/google'
 
 let fuse
 
@@ -240,7 +239,7 @@ export default function MailingListForm () {
           secure: true,
           sameSite: 'None'
         })
-        Cookie.set('fellowflight_id', json.fellowflightmatch.id, {
+        Cookies.set('fellowflight_id', json.fellowflightmatch.id, {
           expires: 365,
           domain: 'fellowflightmatch.abdullah.buzz',
           secure: true,
