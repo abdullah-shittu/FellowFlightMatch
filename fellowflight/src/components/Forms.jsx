@@ -207,10 +207,10 @@ export default function MailingListForm () {
       const formsmd = new Formsmd(composer.template, containerRef.current, {
         postHeaders: {
           Authorization: `Bearer ${token}`,
-          'credential': 'include'
+          credential: 'include'
         },
         errorFieldKey: 'attr',
-        errorMessageKey: 'detail',
+        errorMessageKey: 'detail'
       })
       // formsmd.onCompletion = handleFormSubmit
       formsmd.getSubmissionErrors = function (json) {
@@ -233,19 +233,19 @@ export default function MailingListForm () {
         }
         return messages
       }
-      formsmd.onCompletion = (json) => {
-
-        Cookies.set('fellowflight_form_complete', json.completed, {
+      formsmd.onCompletion = json => {
+        Cookies.set('fellowflight_form_complete', 'true', {
           expires: 365,
           domain: 'fellowflightmatch.abdullah.buzz',
           secure: true,
           sameSite: 'None'
         })
-        Cookie.set('fellowflight_id', json.id , {
+        Cookie.set('fellowflight_id', json.fellowflightmatch.id, {
           expires: 365,
           domain: 'fellowflightmatch.abdullah.buzz',
           secure: true,
-          sameSite: 'None'  )
+          sameSite: 'None'
+        })
 
         // router.push('/matches')
       }
