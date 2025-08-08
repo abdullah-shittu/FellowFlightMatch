@@ -230,7 +230,8 @@ export default function MailingListForm () {
         return messages
       }
       formsmd.onCompletion = () => {
-        router.push('/matches')
+        
+        // router.push('/matches')
       }
       formsmd.init()
       document.addEventListener('input', e => {
