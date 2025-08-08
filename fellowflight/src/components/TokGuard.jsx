@@ -13,7 +13,7 @@ function useAuthGuard () {
 
     const formComplete = document.cookie
       .split('; ')
-      .find(row => row.startsWith('fellowflight_form_completez='))
+      .find(row => row.startsWith('fellowflight_form_complete='))
       ?.split('=')[1]
 
     const currentPath = window.location.pathname
@@ -23,13 +23,13 @@ function useAuthGuard () {
         router.replace('/')
       }
     } else {
-      if (formComplete !== 'true' && currentPath !== '/form') {
+      if (formComplete !== true && currentPath !== '/form') {
         router.replace('/form')
-      } else if (formComplete === 'true' && currentPath !== '/matches') {
+      } else if (formComplete === true && currentPath !== '/matches') {
         router.replace('/matches')
       }
     }
-  }, [pathname,router])
+  }, [pathname, router])
 }
 
 export default useAuthGuard
