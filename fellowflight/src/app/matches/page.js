@@ -5,9 +5,10 @@ import { ProfileCard } from '@/components/ProfileCard'
 import useAuthGuard from '@/components/TokGuard'
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export default function Home () {
-  useAuthGuard()
+  useAuthGuard()[(matches, setMatches)] = useState([])
   const router = useRouter()
   const token = document.cookie
     .split('; ')
@@ -24,13 +25,16 @@ export default function Home () {
   //Create function that fetches fligth matches
   const fetchFlightMatches = async () => {
     try {
-      const response = await fetch(`https://api.fellowflightmatch.abdullah.buzz/api/v1/matches?flight_id=${flightid}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
+      const response = await fetch(
+        `https://api.fellowflightmatch.abdullah.buzz/api/v1/matches?flight_id=${flightid}`,
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          }
         }
-      })
+      )
       if (!response.ok) {
         throw new Error('Network response was not ok')
       }
@@ -40,16 +44,55 @@ export default function Home () {
       console.error('Error fetching flight matches:', error)
       return []
     }
-  } 
+  }
+  const convertToMockMatches = matchResponse => {
+    const mockMatches = []
+    if (matchResponse.same_flight) {
+      matchResponse.same_flight.forEach(profile => {
+        mockMatches.push({
+          user: {
+            name: profile.name,
+            subtitle: 'MLT Class of 2026', // Placeholder subtitle
+            profileImage: 'https://randomuser.me/api/profile',
+            linkedinUrl: profile.linkedin_url || '#'
+          },
+          matchType: 'Same Flight',
+          isSameFlight: true,
+          matchDetails: null // No specific overlap details needed for Same Flight
+        })
+      })
+    }
+    if (matchResponse.time_overlap) {
+      matchResponse.time_overlap.forEach(profile => {
+        mockMatches.push({
+          user: {
+            name: profile.name,
+            subtitle: 'MLT Class of 2025', // Placeholder subtitle
+            profileImage: 'https://randomuser.me/api/profile',
+            linkedinUrl: profile.linkedin_url || '#'
+          },
+          matchType: 'Airport Overlap',
+          isSameFlight: false,
+          matchDetails: {
+            overlapTime: profile.overlap_minutes
+              ? `${profile.overlap_minutes}-minute overlap`
+              : 'Unknown overlap time'
+          }
+        })
+      })
+    }
+    return mockMatches
+  }
 
   useEffect(() => {
-    const isAuthenticated = localStorage.getItem('jwt')
-    if (!isAuthenticated) {
-      auth_url = 'slack_url'
-      router.push(auth_url) // redirect client-side
+    const fetchMatches = async () => {
+      const matchResponse = await fetchFlightMatches()
+      const mockMatches = convertToMockMatches(matchResponse)
+      setMatches(mockMatches)
     }
+    fetchMatches()
   }, [])
-
+  //How to make it so the use
   // A single object representing an Airport Overlap match
   const mockMatches = [
     {
@@ -90,42 +133,12 @@ export default function Home () {
       }
     }
   ]
-  // On load, it will call hte get api.
-  //   GET /matches
-  // Flow: Match Finder
-  // Description: Finds and returns all matching users for a specific flight submitted by the authenticated user.
-  // Authentication: Required.
-  // Query Parameters:
-  // flight_id (string, required): The ID of the user's flight for which to find matches.
-  // Responses:
-  // 200 OK: Returns a list of matched users, categorized by match type.
-  // JSON
-  // {
-  //   "same_flight": [
-  //     {
-  //       "name": "John Smith",
-  //       "linkedin_url": "https://linkedin.com/in/johnsmith",
-  //       "slack_id": "U98765ZYX"
-  //     }
-  //   ],
-  //   "time_overlap": [
-  //     {
-  //       "name": "Emily White",
-  //       "linkedin_url": "https://linkedin.com/in/emilywhite",
-  //       "slack_id": "U54321BCA"
-  //     }
-  //   ]
-  // }
-
-  // 400 Bad Request: If the flight_id query parameter is missing.
-  // 403 Forbidden: If the user requests matches for a flight_id they do not own.
-  // 404 Not Found: If the specified flight_id does not exist.
   return (
     <div className='container mx-auto p-8'>
       <h1 className='text-3xl font-bold mb-8'>Your Flight Matches</h1>
 
       <div className='flex flex-wrap gap-6 justify-start'>
-        {mockMatches.map((match, index) => (
+        {matches.map((match, index) => (
           <ProfileCard
             key={index}
             user={match.user}
