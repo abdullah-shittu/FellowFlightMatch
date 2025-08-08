@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation' // or react-router
-
+import { usePathname } from 'next/navigation'
 function useAuthGuard () {
   const router = useRouter()
   const pathname = usePathname()

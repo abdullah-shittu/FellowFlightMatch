@@ -7,17 +7,48 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
 export default function Home () {
-  useAuthGuard();
-  // A single object representing a user's profile
+  useAuthGuard()
   const router = useRouter()
+  const token = document.cookie
+    .split('; ')
+    .find(row => row.startsWith('fellowflight_access_token='))
+    ?.split('=')[1]
+  setStyle({
+    width: isMobile ? '90vw' : '100%',
+    maxWidth: '1000px',
+    height: isMobile ? '80vh' : '70vh',
+    margin: '0 auto'
+  })
 
-  // useEffect(() => {
-  //   const isAuthenticated = localStorage.getItem('jwt')
-  //   if (!isAuthenticated) {
-  //     auth_url = 'slack_url'
-  //     router.push(auth_url) // redirect client-side
-  //   }
-  // }, [])
+  const flightid = 0
+  //Create function that fetches fligth matches
+  const fetchFlightMatches = async () => {
+    try {
+      const response = await fetch(`https://api.fellowflightmatch.abdullah.buzz/api/v1/matches?flight_id=${flightid}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      })
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const data = await response.json()
+      return data
+    } catch (error) {
+      console.error('Error fetching flight matches:', error)
+      return []
+    }
+  } 
+
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem('jwt')
+    if (!isAuthenticated) {
+      auth_url = 'slack_url'
+      router.push(auth_url) // redirect client-side
+    }
+  }, [])
 
   // A single object representing an Airport Overlap match
   const mockMatches = [
