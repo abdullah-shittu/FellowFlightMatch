@@ -1,5 +1,7 @@
 import "./formsmd/dist/css/formsmd.min.css"; // Or import formsmd.rtl.min.css in case of RTL
 import { Composer, Formsmd } from "formsmd";
+import Cookies from 'js-cookie'
+
  
 // Create form with ID and submission endpoint
 const composer = new Composer({

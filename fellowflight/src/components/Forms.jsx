@@ -6,6 +6,9 @@ import { Composer, Formsmd } from 'formsmd'
 import Papa from 'papaparse'
 import Fuse from 'fuse.js'
 import { useRouter } from 'next/navigation'
+import Cookies from 'js-cookie'
+import { Cookie } from 'next/font/google'
+
 let fuse
 
 fetch('/airports.csv')
@@ -230,7 +233,19 @@ export default function MailingListForm () {
         }
         return messages
       }
-      formsmd.onCompletion = () => {
+      formsmd.onCompletion = (json) => {
+
+        Cookies.set('fellowflight_form_complete', json.completed, {
+          expires: 365,
+          domain: 'fellowflightmatch.abdullah.buzz',
+          secure: true,
+          sameSite: 'None'
+        })
+        Cookie.set('fellowflight_id', json.id , {
+          expires: 365,
+          domain: 'fellowflightmatch.abdullah.buzz',
+          secure: true,
+          sameSite: 'None'  )
 
         // router.push('/matches')
       }
