@@ -23,9 +23,9 @@ function useAuthGuard () {
         router.replace('/')
       }
     } else {
-      if (formComplete !== true && currentPath !== '/form') {
+      if (formComplete !== 'true' && currentPath !== '/form') {
         router.replace('/form')
-      } else if (formComplete === true && currentPath !== '/matches') {
+      } else if (formComplete === 'true' && currentPath !== '/matches') {
         router.replace('/matches')
       }
     }
