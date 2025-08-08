@@ -73,7 +73,7 @@ export default function Home () {
               profileImage: `https://api.dicebear.com/9.x/pixel-art/svg?seed=${Math.floor(
                 Math.random() * 1000
               )}}`,
-              linkedinUrl: profile.linkedin_url || '#'
+              linkedinUrl: `https://${profile.linkedin_url}` || '#'
             },
             matchType: 'Airport Overlap',
             isSameFlight: false,
