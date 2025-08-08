@@ -117,7 +117,7 @@ async function handleFormSubmit (formData) {
 
 const composer = new Composer({
   id: 'mailing-list-form',
-  postUrl: 'https://api.fellowflight.abdullah.buzz/api/v1/formHandler'
+  postUrl: 'https://api.fellowflightmatch.abdullah.buzz/api/v1/formHandler'
 })
 
 // Slide 1: Core Flight Information (Page Progress: 0%)
