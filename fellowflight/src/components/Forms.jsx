@@ -45,7 +45,7 @@ function showAirportSuggestions (inputEl, results) {
     option.style.cursor = 'pointer'
 
     option.addEventListener('click', () => {
-      inputEl.value = `${airport.name} (${airport.iata})`
+      inputEl.value = `${airport.iata}`
       container.remove()
     })
 
