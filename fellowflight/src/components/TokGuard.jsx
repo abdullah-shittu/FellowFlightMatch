@@ -1,34 +1,35 @@
-import { useEffect } from "react";
-import { useRouter } from "next/navigation"; // or react-router
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation' // or react-router
 
-function useAuthGuard() {
-  const router = useRouter();
+function useAuthGuard () {
+  const router = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
     const token = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("fellowflight_access_token="))
-      ?.split("=")[1];
+      .split('; ')
+      .find(row => row.startsWith('fellowflight_access_token='))
+      ?.split('=')[1]
 
     const formComplete = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("fellowflight_form_complete="))
-      ?.split("=")[1];
+      .split('; ')
+      .find(row => row.startsWith('fellowflight_form_completez='))
+      ?.split('=')[1]
 
-    const currentPath = window.location.pathname;
+    const currentPath = window.location.pathname
 
     if (!token) {
-      if (currentPath !== "/") {
-        router.replace("/");
+      if (currentPath !== '/') {
+        router.replace('/')
       }
     } else {
-      if (formComplete !== "true" && currentPath !== "/form") {
-        router.replace("/form");
-      } else if (formComplete === "true" && currentPath !== "/matches") {
-        router.replace("/matches");
+      if (formComplete !== 'true' && currentPath !== '/form') {
+        router.replace('/form')
+      } else if (formComplete === 'true' && currentPath !== '/matches') {
+        router.replace('/matches')
       }
     }
-  }, [router]);
+  }, [pathname,router])
 }
 
-export default useAuthGuard;
+export default useAuthGuard
