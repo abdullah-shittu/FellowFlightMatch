@@ -8,7 +8,7 @@ import useAuthGuard from '@/components/TokGuard'
 
 // Main About Page Component
 export default function FormPage () {
-    // useAuthGuard();
+    useAuthGuard();
     const router = useRouter()
   
     // useEffect(() => {
