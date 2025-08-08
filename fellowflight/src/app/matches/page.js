@@ -11,80 +11,80 @@ export default function Home () {
   useAuthGuard()
   const [matches, setMatches] = useState([])
   // const router = useRouter()
-  const token = document.cookie
-    .split('; ')
-    .find(row => row.startsWith('fellowflight_access_token='))
-    ?.split('=')[1]
-  const flight_id = document.cookie
-    .split('; ')
-    .find(row => row.startsWith('fellowflight_id='))
-    ?.split('=')[1]
-
-  //Create function that fetches fligth matches
-  const fetchFlightMatches = async () => {
-    try {
-      const response = await fetch(
-        `https://api.fellowflightmatch.abdullah.buzz/api/v1/matches?flight_id=${Number(
-          flight_id
-        )}`,
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-          }
-        }
-      )
-      if (!response.ok) {
-        throw new Error('Network response was not ok')
-      }
-      const data = await response.json()
-      return data
-    } catch (error) {
-      console.error('Error fetching flight matches:', error)
-      return []
-    }
-  }
-  const convertToMockMatches = matchResponse => {
-    const mockMatches = []
-    if (matchResponse.same_flight) {
-      matchResponse.same_flight.forEach(profile => {
-        mockMatches.push({
-          user: {
-            name: profile.name,
-            subtitle: 'MLT Class of 2026', // Placeholder subtitle
-            profileImage: 'https://randomuser.me/api/profile',
-            linkedinUrl: profile.linkedin_url || '#'
-          },
-          matchType: 'Same Flight',
-          isSameFlight: true,
-          matchDetails: null // No specific overlap details needed for Same Flight
-        })
-      })
-    }
-    if (matchResponse.time_overlap) {
-      matchResponse.time_overlap.forEach(profile => {
-        mockMatches.push({
-          user: {
-            name: profile.name,
-            subtitle: 'MLT Class of 2025', // Placeholder subtitle
-            profileImage: 'https://randomuser.me/api/profile',
-            linkedinUrl: profile.linkedin_url || '#'
-          },
-          matchType: 'Airport Overlap',
-          isSameFlight: false,
-          matchDetails: {
-            overlapTime: profile.overlap_minutes
-              ? `${profile.overlap_minutes}-minute overlap`
-              : 'Unknown overlap time'
-          }
-        })
-      })
-    }
-    return mockMatches
-  }
 
   useEffect(() => {
+    const token = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('fellowflight_access_token='))
+      ?.split('=')[1]
+    const flight_id = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('fellowflight_id='))
+      ?.split('=')[1]
+
+    //Create function that fetches fligth matches
+    const fetchFlightMatches = async () => {
+      try {
+        const response = await fetch(
+          `https://api.fellowflightmatch.abdullah.buzz/api/v1/matches?flight_id=${Number(
+            flight_id
+          )}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`
+            }
+          }
+        )
+        if (!response.ok) {
+          throw new Error('Network response was not ok')
+        }
+        const data = await response.json()
+        return data
+      } catch (error) {
+        console.error('Error fetching flight matches:', error)
+        return []
+      }
+    }
+    const convertToMockMatches = matchResponse => {
+      const mockMatches = []
+      if (matchResponse.same_flight) {
+        matchResponse.same_flight.forEach(profile => {
+          mockMatches.push({
+            user: {
+              name: profile.name,
+              subtitle: 'MLT Class of 2026', // Placeholder subtitle
+              profileImage: 'https://randomuser.me/api/profile',
+              linkedinUrl: profile.linkedin_url || '#'
+            },
+            matchType: 'Same Flight',
+            isSameFlight: true,
+            matchDetails: null // No specific overlap details needed for Same Flight
+          })
+        })
+      }
+      if (matchResponse.time_overlap) {
+        matchResponse.time_overlap.forEach(profile => {
+          mockMatches.push({
+            user: {
+              name: profile.name,
+              subtitle: 'MLT Class of 2025', // Placeholder subtitle
+              profileImage: 'https://randomuser.me/api/profile',
+              linkedinUrl: profile.linkedin_url || '#'
+            },
+            matchType: 'Airport Overlap',
+            isSameFlight: false,
+            matchDetails: {
+              overlapTime: profile.overlap_minutes
+                ? `${profile.overlap_minutes}-minute overlap`
+                : 'Unknown overlap time'
+            }
+          })
+        })
+      }
+      return mockMatches
+    }
     const fetchMatches = async () => {
       const matchResponse = await fetchFlightMatches()
       const mockMatches = convertToMockMatches(matchResponse)
